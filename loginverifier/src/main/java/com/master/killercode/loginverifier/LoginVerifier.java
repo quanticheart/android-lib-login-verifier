@@ -244,7 +244,7 @@ public class LoginVerifier extends Dao {
 
     }
 
-    public void getLogin(Class mainActivity) {
+    public boolean getLogin(Class mainActivity) {
 
         abrirBanco();
         //
@@ -277,11 +277,14 @@ public class LoginVerifier extends Dao {
             Intent intent = new Intent(activity, mainActivity);
             activity.startActivity(intent);
             activity.finish();
+            return true;
+        } else {
+            return false;
         }
 
     }
 
-    public void getLogin(Class mainActivity, Class loginActivity) {
+    public boolean getLogin(Class mainActivity, Class loginActivity) {
 
         int number = 0;
 
@@ -323,6 +326,7 @@ public class LoginVerifier extends Dao {
             Intent intent = new Intent(activity, mainActivity);
             activity.startActivity(intent);
             activity.finish();
+            return true;
         } else {
 
             if (number > 0) {
@@ -338,11 +342,10 @@ public class LoginVerifier extends Dao {
                 activity.startActivity(intent);
                 activity.finish();
             }
-
+            return false;
         }
 
     }
-
 
     private String key = "APPKEY";
     private static String split = "::";
@@ -362,7 +365,7 @@ public class LoginVerifier extends Dao {
         return base64;
     }
 
-    public static String md5Decode(String base64) {
+    public String md5Decode(String base64) {
         String rawDecoded = "";
         try {
             byte[] data2 = Base64.decode(base64, Base64.DEFAULT);
@@ -377,6 +380,43 @@ public class LoginVerifier extends Dao {
 //        Log.w("Decode", array[0]);
         return array[0];
     }
+
+    public boolean getStatusLogin() {
+
+        abrirBanco();
+        //
+        Cursor cursor = null;
+
+        String id = getFirstID(TABLE_LOGIN);
+        String dados = "";
+        //
+        try {
+            String comando = " select * from " + TABLE_LOGIN + " where " + _ID + " = ? ";
+            String[] argumentos = {id};
+
+            cursor = db.rawQuery(comando.toLowerCase(), argumentos);
+
+            while (cursor.moveToNext()) {
+                dados = cursor.getString(cursor.getColumnIndex(LOG));
+            }
+
+            cursor.close();
+            cursor = null;
+
+        } catch (Exception e) {
+        }
+        //
+        fecharBanco();
+        //
+
+        if (dados.equals("1")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 
 
 }

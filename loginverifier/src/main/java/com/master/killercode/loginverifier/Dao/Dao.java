@@ -16,7 +16,7 @@ public class Dao extends Constantes_Banco {
         this.context = context;
     }
 
-    public void abrirBanco() {
+    protected void abrirBanco() {
         SQLiteHelper helper = new SQLiteHelper(
                 context,
                 BANCO,
@@ -28,7 +28,7 @@ public class Dao extends Constantes_Banco {
 
     }
 
-    public void fecharBanco() {
+    protected void fecharBanco() {
         if (db != null) {
             db.close();
         }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.util.ArrayMap;
 import android.util.Base64;
 import android.util.Log;
@@ -21,7 +22,7 @@ public class LoginVerifier extends Dao {
 
     private Activity activity;
 
-    public LoginVerifier(Activity activity) {
+    public LoginVerifier(@NonNull Activity activity) {
         super(activity);
         this.activity = activity;
     }
@@ -347,10 +348,10 @@ public class LoginVerifier extends Dao {
 
     }
 
-    private String key = "APPKEY";
+    private String key = activity.getResources().getString(R.string.app_name);
     private static String split = "::";
 
-    public String md5(String user, String pass) {
+    private String md5(String user, String pass) {
         String base64 = "";
 
         String md5 = pass + split + key + split + user;
@@ -416,7 +417,6 @@ public class LoginVerifier extends Dao {
         }
 
     }
-
 
 
 }

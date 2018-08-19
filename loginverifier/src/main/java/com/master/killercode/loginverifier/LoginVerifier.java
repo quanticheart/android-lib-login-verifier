@@ -350,7 +350,7 @@ public class LoginVerifier extends Dao {
     private String key = "APPKEY";
     private static String split = "::";
 
-    private String md5(String user, String pass) {
+    public String md5(String user, String pass) {
         String base64 = "";
 
         String md5 = pass + split + key + split + user;
@@ -365,7 +365,7 @@ public class LoginVerifier extends Dao {
         return base64;
     }
 
-    public String md5Decode(String base64) {
+    public static String md5Decode(String base64) {
         String rawDecoded = "";
         try {
             byte[] data2 = Base64.decode(base64, Base64.DEFAULT);

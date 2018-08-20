@@ -348,12 +348,12 @@ public class LoginVerifier extends Dao {
 
     }
 
-    private String key = activity.getResources().getString(R.string.app_name);
+    private String key = "APPKEY";
     private static String split = "::";
 
     private String md5(String user, String pass) {
         String base64 = "";
-
+        key = activity.getResources().getString(R.string.app_name);
         String md5 = pass + split + key + split + user;
 
         try {
